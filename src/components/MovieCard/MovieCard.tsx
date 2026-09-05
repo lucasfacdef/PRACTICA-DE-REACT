@@ -1,5 +1,7 @@
-import { Card, Rate } from "antd";
+import { Button, Card, Rate } from "antd";
 import { Link } from "react-router";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
+import { useMovies } from "../../hooks/useMovies";
 
 interface MovieCardProps {
   id: string;
@@ -16,6 +18,33 @@ function MovieCard({
   year,
   rating,
 }: MovieCardProps) {
+  const {
+    favorites,
+    addFavorite,
+    removeFavorite,
+  } = useMovies();
+
+  const isFavorite = favorites.some(
+    (favorite) => favorite.id === id,
+  );
+
+  const handleFavorite = () => {
+    if (isFavorite) {
+      removeFavorite(id);
+    } else {
+      addFavorite({
+        id,
+        title,
+        image,
+        year,
+        rating,
+        description: "",
+        category: "",
+        type: "movie",
+      });
+    }
+  };
+
   return (
     <Card
       className="movie-card"
@@ -25,9 +54,33 @@ function MovieCard({
 
       <p>{year}</p>
 
-      <Rate disabled allowHalf value={rating} />
+      <Rate
+        disabled
+        allowHalf
+        value={rating}
+      />
 
-      <Link to={`/movie/${id}`}>Ver detalles</Link>
+      <div>
+        <Link to={`/movie/${id}`}>
+          Ver detalles
+        </Link>
+      </div>
+
+      <Button
+        type="text"
+        onClick={handleFavorite}
+        icon={
+          isFavorite ? (
+            <HeartFilled />
+          ) : (
+            <HeartOutlined />
+          )
+        }
+      >
+        {isFavorite
+          ? "Quitar de favoritos"
+          : "Agregar a favoritos"}
+      </Button>
     </Card>
   );
 }

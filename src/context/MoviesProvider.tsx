@@ -19,9 +19,26 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
     return initialMovies;
   });
 
+  const [favorites, setFavorites] = useState<Movie[]>(() => {
+    const savedFavorites = localStorage.getItem("streamtuc-favorites");
+
+    if (savedFavorites) {
+      return JSON.parse(savedFavorites);
+    }
+
+    return [];
+  });
+
   useEffect(() => {
     localStorage.setItem("streamtuc-movies", JSON.stringify(movies));
   }, [movies]);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "streamtuc-favorites",
+      JSON.stringify(favorites),
+    );
+  }, [favorites]);
 
   const addMovie = (movie: Movie) => {
     setMovies((currentMovies) => [...currentMovies, movie]);
@@ -41,6 +58,26 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
     );
   };
 
+  const addFavorite = (movie: Movie) => {
+    setFavorites((currentFavorites) => {
+      const alreadyFavorite = currentFavorites.some(
+        (favorite) => favorite.id === movie.id,
+      );
+
+      if (alreadyFavorite) {
+        return currentFavorites;
+      }
+
+      return [...currentFavorites, movie];
+    });
+  };
+
+  const removeFavorite = (id: string) => {
+    setFavorites((currentFavorites) =>
+      currentFavorites.filter((movie) => movie.id !== id),
+    );
+  };
+
   return (
     <MoviesContext.Provider
       value={{
@@ -48,6 +85,9 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
         addMovie,
         updateMovie,
         deleteMovie,
+        favorites,
+        addFavorite,
+        removeFavorite,
       }}
     >
       {children}
