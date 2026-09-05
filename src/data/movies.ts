@@ -1,0 +1,43 @@
+import type { Movie } from "../types/Movie";
+export const movies: Movie[] = [
+  {
+    id: "1",
+    title: "El último viaje",
+    description: "Una aventura que cambiará el destino de todos.",
+    image: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba",
+    category: "Acción",
+    year: 2025,
+    rating: 4.5,
+    type: "movie",
+  },
+  {
+    id: "2",
+    title: "Ciudad Oscura",
+    description: "Un detective descubre un secreto que nadie esperaba.",
+    image: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c",
+    category: "Suspenso",
+    year: 2024,
+    rating: 4,
+    type: "movie",
+  },
+  {
+    id: "3",
+    title: "El espacio",
+    description: "Una misión espacial al límite de lo imposible.",
+    image: "https://images.unsplash.com/photo-1446776877081-d282a0f896e2",
+    category: "Ciencia ficción",
+    year: 2025,
+    rating: 4.5,
+    type: "movie",
+  },
+  {
+    id: "4",
+    title: "Noche de verano",
+    description: "Una historia que comienza durante una noche inolvidable.",
+    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+    category: "Drama",
+    year: 2023,
+    rating: 3.5,
+    type: "movie",
+  },
+];
