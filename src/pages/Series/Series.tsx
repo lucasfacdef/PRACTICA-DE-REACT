@@ -1,14 +1,57 @@
+import { useState } from "react";
+import { Select } from "antd";
 import MovieCard from "../../components/MovieCard/MovieCard";
+import SearchBar from "../../components/SearchBar/SearchBar";
 import { useMovies } from "../../hooks/useMovies";
 
 function Series() {
   const { movies } = useMovies();
 
-  const seriesList = movies.filter((movie) => movie.type === "series");
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("Todas");
+
+  const seriesList = movies.filter(
+    (movie) =>
+      movie.type === "series" &&
+      movie.title.toLowerCase().includes(search.toLowerCase()) &&
+      (category === "Todas" || movie.category === category),
+  );
 
   return (
     <main className="movies-page">
       <h1>Series</h1>
+
+      <SearchBar
+        value={search}
+        onChange={setSearch}
+      />
+
+      <Select
+        value={category}
+        onChange={setCategory}
+        options={[
+          {
+            value: "Todas",
+            label: "Todas las categorías",
+          },
+          {
+            value: "Acción",
+            label: "Acción",
+          },
+          {
+            value: "Suspenso",
+            label: "Suspenso",
+          },
+          {
+            value: "Ciencia ficción",
+            label: "Ciencia ficción",
+          },
+          {
+            value: "Drama",
+            label: "Drama",
+          },
+        ]}
+      />
 
       <div className="movies-grid">
         {seriesList.map((movie) => (
