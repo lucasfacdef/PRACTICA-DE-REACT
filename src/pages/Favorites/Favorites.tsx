@@ -9,17 +9,15 @@ function Favorites() {
       <h1>Mis favoritos</h1>
 
       {favorites.length === 0 ? (
-        <p>No tenés películas favoritas todavía.</p>
+        <p>
+          No tenés películas o series favoritas todavía.
+        </p>
       ) : (
         <div className="movies-grid">
           {favorites.map((movie) => (
             <MovieCard
               key={movie.id}
-              id={movie.id}
-              title={movie.title}
-              image={movie.image}
-              year={movie.year}
-              rating={movie.rating}
+              movie={movie}
             />
           ))}
         </div>

@@ -1,19 +1,15 @@
 import MovieCard from "../MovieCard/MovieCard";
-
-interface Movie {
-  id: string;
-  title: string;
-  image: string;
-  year: number;
-  rating: number;
-}
+import type { Movie } from "../../types/Movie";
 
 interface MovieRowProps {
   title: string;
   movies: Movie[];
 }
 
-function MovieRow({ title, movies }: MovieRowProps) {
+function MovieRow({
+  title,
+  movies,
+}: MovieRowProps) {
   return (
     <section className="movie-row">
       <h2>{title}</h2>
@@ -22,11 +18,7 @@ function MovieRow({ title, movies }: MovieRowProps) {
         {movies.map((movie) => (
           <MovieCard
             key={movie.id}
-            id={movie.id}
-            title={movie.title}
-            image={movie.image}
-            year={movie.year}
-            rating={movie.rating}
+            movie={movie}
           />
         ))}
       </div>

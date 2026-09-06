@@ -13,8 +13,11 @@ function Series() {
   const seriesList = movies.filter(
     (movie) =>
       movie.type === "series" &&
-      movie.title.toLowerCase().includes(search.toLowerCase()) &&
-      (category === "Todas" || movie.category === category),
+      movie.title
+        .toLowerCase()
+        .includes(search.toLowerCase()) &&
+      (category === "Todas" ||
+        movie.category === category),
   );
 
   return (
@@ -57,11 +60,7 @@ function Series() {
         {seriesList.map((movie) => (
           <MovieCard
             key={movie.id}
-            id={movie.id}
-            title={movie.title}
-            image={movie.image}
-            year={movie.year}
-            rating={movie.rating}
+            movie={movie}
           />
         ))}
       </div>
