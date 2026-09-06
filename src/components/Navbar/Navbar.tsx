@@ -1,7 +1,16 @@
 import { Button, Menu } from "antd";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "../../hooks/useAuth";
 
 function Navbar() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-logo">
@@ -32,9 +41,19 @@ function Navbar() {
       />
 
       <div className="navbar-actions">
-        <Button type="primary">
-          <Link to="/login">Iniciar sesión</Link>
-        </Button>
+        {user ? (
+          <>
+            <span>Hola, {user.name}</span>
+
+            <Button onClick={handleLogout}>
+              Cerrar sesión
+            </Button>
+          </>
+        ) : (
+          <Button type="primary">
+            <Link to="/login">Iniciar sesión</Link>
+          </Button>
+        )}
       </div>
     </nav>
   );
